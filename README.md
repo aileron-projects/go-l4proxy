@@ -14,21 +14,62 @@
 
 # go-l4proxy
 
-**go-l4proxy repository.**
+**Layer4, TCP and UDP, proxy servers and library for Go.**
 
 ## Features
 
-- Print hello world.
+- TCP server
+- TCP proxy
+- UDP server
+- UDP proxy
+- High performance
 
 ## Usages
+
+### TCP Server and proxy
+
+```go
+svr := &tcp.Server{
+    Addr:    ":8000",
+    Handler: tcp.NewProxy("localhost:9000"),
+}
+
+if err := svr.ListenAndServe(); err != nil && err != tcp.ErrServerClosed {
+    panic(err)
+}
+```
+
+### UDP Server and proxy
+
+```go
+svr := &udp.Server{
+    Addr:    ":8000",
+    Handler: udp.NewProxy("localhost:9000"),
+}
+
+if err := svr.ListenAndServe(); err != nil && err != udp.ErrServerClosed {
+    panic(err)
+}
+```
 
 ## Docs & Examples
 
 - GoDoc: <https://pkg.go.dev/github.com/aileron-projects/go-l4proxy>
 - Examples:
-
-## Benchmarks
+  - TCP proxy: [examples/tcp-proxy](./examples/tcp-proxy)
+  - TCP proxy with upstream TLS: [examples/tcp-proxy-tls](./examples/tcp-proxy-tls)
+  - TCP server: [examples/tcp-server-simple](./examples/tcp-server-simple)
+  - TCP server graceful shutdown: [examples/tcp-server-runner](./examples/tcp-server-runner)
+  - TCP TLS server: [examples/tcp-server-tls](./examples/tcp-server-tls)
+  - TCP server with ip whitelist: [examples/tcp-server-whitelist](./examples/tcp-server-whitelist)
+  - TCP server with max connections: [examples/tcp-limit-concurrency](./examples/tcp-limit-concurrency)
+  - TCP server listens on a unix abstract socket: [examples/tcp-socket-abstract](./examples/tcp-socket-abstract)
+  - TCP server listens on a unix path socket: [examples/tcp-socket-path](./examples/tcp-socket-path)
+  - UDP proxy: [examples/udp-proxy](./examples/udp-proxy)
+  - UDP server: [examples/udp-server-simple](./examples/udp-server-simple)
+  - UDP server graceful shutdown: [examples/udp-server-runner](./examples/udp-server-runner)
+  - UDP server with ip whitelist: [examples/udp-server-whitelist](./examples/udp-server-whitelist)
+  - UDP server listens on a unix abstract socket: [examples/udp-socket-abstract](./examples/udp-socket-abstract)
+  - UDP server listens on a unix path socket: [examples/udp-socket-path](./examples/udp-socket-path)
 
 ## References
-
-- [Standard library](https://pkg.go.dev/std)

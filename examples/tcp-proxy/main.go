@@ -13,7 +13,7 @@ func main() {
 	}
 
 	log.Println("starting tcp proxy server at " + svr.Addr)
-	if err := svr.ListenAndServe(); err != nil {
+	if err := svr.ListenAndServe(); err != nil && err != tcp.ErrServerClosed {
 		panic(err)
 	}
 }
