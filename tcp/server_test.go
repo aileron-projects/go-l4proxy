@@ -79,7 +79,8 @@ func TestServer_ListenAndServeTLS(t *testing.T) {
 			cn.Close()
 			s.Close()
 		}()
-		err := s.ListenAndServeTLS("./testdata/cert.pem", "./testdata/key.pem")
+		cert, key := createCertKey(t)
+		err := s.ListenAndServeTLS(cert, key)
 		tester.AssertEqualErr(t, ErrServerClosed, err)
 	})
 }
@@ -93,8 +94,9 @@ func TestServer_ServeTLS(t *testing.T) {
 		tester.AssertEqualErr(t, ErrServerClosed, err)
 	})
 	t.Run("read cert error", func(t *testing.T) {
+		_, key := createCertKey(t)
 		s := &Server{}
-		err := s.ServeTLS(nil, "./testdata/not-found.pem", "./testdata/key.pem")
+		err := s.ServeTLS(nil, "./testdata/not-found.pem", key)
 		_, ok := err.(*fs.PathError)
 		tester.AssertEqual(t, true, ok)
 	})
@@ -113,7 +115,8 @@ func TestServer_ServeTLS(t *testing.T) {
 			conn.Close()
 			s.Close()
 		}()
-		err := s.ServeTLS(ln, "./testdata/cert.pem", "./testdata/key.pem")
+		cert, key := createCertKey(t)
+		err := s.ServeTLS(ln, cert, key)
 		tester.AssertEqual(t, ErrServerClosed, err)
 	})
 }

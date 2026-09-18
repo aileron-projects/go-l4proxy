@@ -1,3 +1,37 @@
+package tcp
+
+import (
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// test data created by:
+// openssl req -new -x509 -nodes -days 36500 -subj '/CN=test' -keyout key.pem -out cert.pem
+
+var certPem = `
+-----BEGIN CERTIFICATE-----
+MIIDATCCAemgAwIBAgIUHqIQ6bKyKGuLkX3MeascRp7a2DQwDQYJKoZIhvcNAQEL
+BQAwDzENMAsGA1UEAwwEdGVzdDAgFw0yNTA1MTYyMjE3NDRaGA8yMTI1MDQyMjIy
+MTc0NFowDzENMAsGA1UEAwwEdGVzdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMdY2WHLQO4OFCwylOmqZ+qgXRXbffIiUit2iVGbN7NnP/Dsw2zjnhyo
+9qVIT6gyvpy8/WWAhNynlvHrqVWClj15CrmG1A87KFIY0btzXAQ0VlROcVa7zm8X
+o7+4etEU1NiyXF1FQE7kdn/okdVm2TRthkPqmPaJIUNIQ8YoNsCpKwf6znguMztr
+gmD4aIrEqExlY2YhJc81Cs0/uns6sabUgdab1chMuSRAAmj8gj7xtNk4v17Zkqgs
+PYyl6nFTSzo+eZvJAFsX3uhN5lSxtq2eIm9CPpafOpN+9A973eGFjyQFMB1xYFZ8
+sTMPYZIlbAd8IjH4JKyT5PE+FAoeJ38CAwEAAaNTMFEwHQYDVR0OBBYEFE0flNIK
+MkxkrVUh/1hn/U8quULeMB8GA1UdIwQYMBaAFE0flNIKMkxkrVUh/1hn/U8quULe
+MA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBABO7xImrHi+jyze8
+9vdhzl1qwE7obwTtznDH57iUY9sZIT0H5OpLYWr4ZkpI1GSmI0sZcYCBnJ/P/pbS
+5b3PHnNVtuESjrDMh8ZwtkYyeiocFgi79bkoYNs8Lk5Fd/XfGtpPdB7V1AcavFLK
+WeWndsUi1YvRco/BjB1oWk5SqudPWn43vW4Iyd2WAXjwtV1FrrRxPgBFL+w2Reow
+0MHT3w6cOgP8Q5Rpm1Di0RP4CmxZUSR3i2S/98UZbpxv3hRsGFrKUiBegcnWQGKa
+3owGH8FMFwZkkcOpxX+5eHSMDWammzTjsOepQg6Krzi7ZjIx5tzGCkEh7lF5QcyV
+QGufxek=
+-----END CERTIFICATE-----
+`
+
+var keyPem = `
 -----BEGIN PRIVATE KEY-----
 MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDHWNlhy0DuDhQs
 MpTpqmfqoF0V233yIlIrdolRmzezZz/w7MNs454cqPalSE+oMr6cvP1lgITcp5bx
@@ -26,3 +60,17 @@ TGAj/98/uASCTxNUVh2vWUgebOkJcXfHHT/eDWFSLvdDmkF03CxB5/49SOHTGv4C
 HGWDrEvA2nj7RAqfiRxFJKJhijWvhN+uB1LTGyhhnpIX1oKwqD5GZZFgF+vnu5kh
 9MUFYSOtwGKSSJ51uTQs/cE=
 -----END PRIVATE KEY-----
+`
+
+func createCertKey(t *testing.T) (cert, key string) {
+	dir := t.TempDir()
+	cert = filepath.Join(dir, "cert.pem")
+	key = filepath.Join(dir, "key.pem")
+	if err := os.WriteFile(cert, []byte(certPem), os.ModePerm); err != nil {
+		t.Error(err)
+	}
+	if err := os.WriteFile(key, []byte(keyPem), os.ModePerm); err != nil {
+		t.Error(err)
+	}
+	return cert, key
+}
