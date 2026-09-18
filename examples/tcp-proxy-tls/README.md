@@ -1,0 +1,20 @@
+# TCP proxy with upstream TLS
+
+## Overview
+
+This example shows how to connect to the upstrem TLS servers from proxy.
+
+## Run the example
+
+See the [../tcp-proxy/README.md](../tcp-proxy/README.md).
+
+## Test cert files
+
+- `cert.pem` is a self-signed server certification.
+- `key.pem` is a signing key for the cert.
+
+Files are generated with [openssl](https://docs.openssl.org/master/man1/openssl-req/).
+
+```bash
+openssl req -newkey rsa:4096 -nodes -keyout key.pem -x509 -days 36500 -out cert.pem -addext 'subjectAltName = DNS:localhost,DNS:*.sock,IP:127.0.0.1' -subj '/CN=127.0.0.1'
+```
