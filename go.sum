@@ -1,0 +1,8 @@
+github.com/aileron-projects/go-ipfilter v0.0.1 h1:05lkVQXcpL+xNlPa8TTJwyV3pvWi79AMPdnFxlgBGSM=
+github.com/aileron-projects/go-ipfilter v0.0.1/go.mod h1:twRDzim1zSnD+0GkIQ2e3akqVDsUP4GfyJPmDHTrgeU=
+github.com/aileron-projects/go-tester v0.0.2 h1:AjCrjGfhmvnzSHxFhwhRW62p+M53ejMz7RgMaiIVews=
+github.com/aileron-projects/go-tester v0.0.2/go.mod h1:tYtuLZkWS1gJzPbtTSYm6Byq4BYOmv+LnBe8NPpWq4s=
+github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
+github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+golang.org/x/net v0.48.0 h1:zyQRTTrjc33Lhh0fBgT/H3oZq9WuvRR5gPC70xpDiQU=
+golang.org/x/net v0.48.0/go.mod h1:+ndRgGjkh8FGtu1w1FGbEC31if4VrNVMuKTgcAAnQRY=
